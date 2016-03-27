@@ -188,7 +188,7 @@ Example:
     return 1;
   }else{
     Keyboard k;
-    
+
     if(keyboardOptions.colorSet) {
       for(int i = 0; i < keyboardOptions.colorOptions.count(); ++i) {
         ColorOption *colorOption = keyboardOptions.colorOptions.at(i);
@@ -200,13 +200,8 @@ Example:
     if(keyboardOptions.modeSet) {
       k.setMode(keyboardOptions.modeOption);
     }
-    
-  }
 
-  /*k.setMode(MODE_NORMAL);
-  k.setColor(REGION_LEFT, COLOR_RED, INTENSITY_HIGH);
-  k.setColor(REGION_MIDDLE, COLOR_PURPLE, INTENSITY_HIGH);
-  k.setColor(REGION_RIGHT, COLOR_SKY, INTENSITY_HIGH);*/
+  }
 
   return 0;
 }

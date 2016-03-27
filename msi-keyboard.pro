@@ -10,5 +10,14 @@ SOURCES += main.cpp keyboard.cpp
 HEADERS += keyboard.h
 
 QMAKE_CXXFLAGS += -std=c++11
+QMAKE_LFLAGS   += -Wl,--no-undefined
 
-unix:LIBS += -lhidapi-libusb
+packagesExist(hidapi-libusb) {
+  unix:LIBS += -lhidapi-libusb
+} else {
+  packagesExist(hidapi) {
+    unix:LIBS += -lhidapi
+  } else {
+    unix:LIBS += -lhidapi-libusb
+  }
+}
