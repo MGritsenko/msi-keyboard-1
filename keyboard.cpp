@@ -51,7 +51,7 @@ void Keyboard::setMode(Mode mode) {
   hid_send_feature_report(m_dev, buf, BUFSIZE);
 }
 
-void Keyboard::setColor(Region region, Color color, Intensity intensity) {
+void Keyboard::setColorPreset(Region region, Color color, Intensity intensity) {
   if(!m_dev)
     return;
 
@@ -64,6 +64,24 @@ void Keyboard::setColor(Region region, Color color, Intensity intensity) {
   buf[4] = static_cast<unsigned int>(color);
   buf[5] = static_cast<unsigned int>(intensity);
   buf[6] = 0;
+  buf[7] = 236;
+
+  hid_send_feature_report(m_dev, buf, BUFSIZE);
+}
+
+void Keyboard::setColor(Region region, char* rgb) {
+  if(!m_dev)
+    return;
+
+  unsigned char buf[BUFSIZE] = {0};
+
+  buf[0] = 1;
+  buf[1] = 2;
+  buf[2] = 64;
+  buf[3] = static_cast<unsigned int>(region);
+  buf[4] = rgb[0];
+  buf[5] = rgb[1];
+  buf[6] = rgb[2];
   buf[7] = 236;
 
   hid_send_feature_report(m_dev, buf, BUFSIZE);

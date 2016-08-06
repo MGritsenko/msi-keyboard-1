@@ -22,9 +22,17 @@ enum Mode {
 };
 
 enum Region {
+  //Only the first three can change mode
   REGION_LEFT = 1,
   REGION_MIDDLE = 2,
-  REGION_RIGHT = 3
+  REGION_RIGHT = 3,
+  //SteelSeries Logo
+  LOGO = 4,
+  //Front lights
+  FRL_LEFT = 5,
+  //Touchpad
+  FRL_RIGHT = 6,
+  TOUCHPAD = 7
 };
 
 enum Color {
@@ -53,7 +61,8 @@ public:
   Keyboard();
   ~Keyboard();
   void setMode(Mode mode);
-  void setColor(Region region, Color color, Intensity intensity);
+  void setColorPreset(Region region, Color color, Intensity intensity);
+  void setColor(Region region, char *rgb);
 
 private:
   hid_device *m_dev;
