@@ -154,8 +154,8 @@ CommandLineParseResult parseCommandLine(QCommandLineParser &parser, KeyboardOpti
   QCommandLineOption versionOption = parser.addVersionOption();
 
   QCommandLineOption mode(QStringList() << "m" << "mode", "set color <mode>: normal, gaming, breathe, demo, wave", "mode");
-  QCommandLineOption color(QStringList() << "c" << "color", "set a <color> using the format: region,red,green,blue with rgb values between 0 and 255", "color");
-  QCommandLineOption colorPreset(QStringList() << "p" << "preset", "set a color <preset> using the format: region,color,intensity (only valid for left/middle/right regions)", "preset");
+  QCommandLineOption color(QStringList() << "r" << "rgb", "set an <rgb> color using the format: region,red,green,blue with rgb values between 0 and 255", "rgb");
+  QCommandLineOption colorPreset(QStringList() << "c" << "color", "set a <color> preset using the format: region,color,intensity (only valid for left/middle/right regions). When using this option, a mode must be specified with -m", "color");
 
   parser.addOption(mode);
   parser.addOption(color);
@@ -237,7 +237,7 @@ Available preset intensities (only for left/middle/right regions):
 Example:
 
 %4
-)").arg(regions.join('\n')).arg(colors.join('\n')).arg(intensities.join('\n')).arg(QString(argv[0]) + " -m normal -p left,red,high -p middle,purple,high -p right,sky,high -c touchpad,255,0,0");
+)").arg(regions.join('\n')).arg(colors.join('\n')).arg(intensities.join('\n')).arg(QString(argv[0]) + " -m normal -c left,red,high -c middle,purple,high -c right,sky,high -r touchpad,255,0,0 -r logo,255,255,255");
 
       std::cout << qPrintable(colorHelp) << std::endl;
 
@@ -245,8 +245,8 @@ Example:
     }
   }
 
-  if(!keyboardOptions.modeSet && !keyboardOptions.colorSet && !keyboardOptions.presetSet) {
-    std::cerr << "Please set a mode or at least one color region to change." << std::endl;
+  if((!keyboardOptions.modeSet || !keyboardOptions.presetSet) && !keyboardOptions.colorSet ) {
+    std::cerr << "Please set either a mode together with at least one region to change a color preset, or a color region to change rgb color." << std::endl;
     return 1;
   }else{
     Keyboard k;
