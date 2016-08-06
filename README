@@ -21,16 +21,24 @@ Keyboard color changer for MSI steelseries keyboards
 Options:
   -h, --help     Displays this help.
   -v, --version  Displays version information.
-  -m, --mode     set color mode: normal, gaming, breathe, demo, wave
-  -c, --color    set a color using the format: region,color,intensity
+  -m, --mode <mode>      set color <mode>: normal, gaming, breathe, demo, wave
+  -c, --color <color>    set a <color> using the format: region,red,green,blue
+                         with rgb values between 0 and 255
+  -p, --preset <preset>  set a color <preset> using the format:
+                         region,color,intensity (only valid for
+                         left/middle/right regions)
 
 Available regions:
 
 left
 middle
 right
+logo
+front-left
+front-right
+touchpad
 
-Available colors:
+Available color presets (only for left/middle/right regions):
 
 off
 red
@@ -42,7 +50,7 @@ blue
 purple
 white
 
-Available intensities:
+Available preset intensities (only for left/middle/right regions):
 
 high
 medium
@@ -51,7 +59,7 @@ light
 
 Example:
 
-./msi-keyboard -m normal -c left,red,high -c middle,purple,high -c right,sky,high
+./msi-keyboard -m normal -p left,red,high -p middle,purple,high -p right,sky,high -c touchpad,255,0,0
 
 
 Licensing:
